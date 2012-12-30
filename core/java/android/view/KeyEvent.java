@@ -639,7 +639,35 @@ public class KeyEvent extends InputEvent implements Parcelable {
     /** @hide */
     public static final int KEYCODE_SCREENSHOT      = 226;
 
-    private static final int LAST_KEYCODE           = KEYCODE_SCREENSHOT;
+    /** FUNC_1 through USER5 to support keypad mapping */
+    /** @hide */
+    public static final int KEYCODE_FUNC_1          = 227;
+    /** @hide */
+    public static final int KEYCODE_FUNC_2          = 228;
+    /** @hide */
+    public static final int KEYCODE_FUNC_3          = 229;
+    /** @hide */
+    public static final int KEYCODE_FUNC_4          = 230;
+    /** @hide */
+    public static final int KEYCODE_FUNC_5          = 231;
+    /** @hide */
+    public static final int KEYCODE_FUNC_6          = 232;
+    /** @hide */
+    public static final int KEYCODE_FUNC_7          = 233;
+    /** @hide */
+    public static final int KEYCODE_FUNC_8          = 234;
+    /** @hide */
+    public static final int KEYCODE_USER1           = 235;
+    /** @hide */
+    public static final int KEYCODE_USER2           = 236;
+    /** @hide */
+    public static final int KEYCODE_USER3           = 237;
+    /** @hide */
+    public static final int KEYCODE_USER4           = 238;
+    /** @hide */
+    public static final int KEYCODE_USER5           = 239;
+
+    private static final int LAST_KEYCODE           = KEYCODE_USER5;
 
     // NOTE: If you add a new keycode here you must also add it to:
     //  isSystem()
