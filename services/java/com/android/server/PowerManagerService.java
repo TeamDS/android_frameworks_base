@@ -243,6 +243,8 @@ public class PowerManagerService extends IPowerManager.Stub
     private LightsService.Light mButtonLight;
     private LightsService.Light mKeyboardLight;
     private LightsService.Light mAttentionLight;
+    private LightsService.Light mCapsLight;
+    private LightsService.Light mFnLight;
     private UnsynchronizedWakeLock mBroadcastWakeLock;
     private UnsynchronizedWakeLock mStayOnWhilePluggedInScreenDimLock;
     private UnsynchronizedWakeLock mStayOnWhilePluggedInPartialLock;
@@ -611,6 +613,8 @@ public class PowerManagerService extends IPowerManager.Stub
         mKeyboardLight = lights.getLight(LightsService.LIGHT_ID_KEYBOARD);
         mAttentionLight = lights.getLight(LightsService.LIGHT_ID_ATTENTION);
         mHeadless = "1".equals(SystemProperties.get("ro.config.headless", "0"));
+	mCapsLight = lights.getLight(LightsService.LIGHT_ID_CAPS);
+	mFnLight = lights.getLight(LightsService.LIGHT_ID_FUNC);
 
         mInitComplete = false;
         mScreenBrightnessAnimator = new ScreenBrightnessAnimator("mScreenBrightnessUpdaterThread",
@@ -1844,6 +1848,9 @@ public class PowerManagerService extends IPowerManager.Stub
                     // make sure button and key backlights are off too
                     mButtonLight.turnOff();
                     mKeyboardLight.turnOff();
+		    // If hiding keyboard, turn off leds
+		    setKeyboardLight(false, 1);
+		    setKeyboardLight(false, 2);
                     // clear current value so we will update based on the new conditions
                     // when the sensor is reenabled.
                     mLightSensorValue = -1;
@@ -3716,6 +3723,20 @@ public class PowerManagerService extends IPowerManager.Stub
             } finally {
                 Binder.restoreCallingIdentity(identity);
             }
+        }
+    }
+
+    public void setKeyboardLight(boolean on, int key) {
+        if (key == 1) {
+            if (on)
+                mCapsLight.setColor(0x00ffffff);
+            else
+                mCapsLight.turnOff();
+        } else if (key == 2) {
+            if (on)
+                mFnLight.setColor(0x00ffffff);
+            else
+                mFnLight.turnOff();
         }
     }
 

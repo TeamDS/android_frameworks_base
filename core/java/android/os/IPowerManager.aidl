@@ -46,6 +46,7 @@ interface IPowerManager
     void setBacklightBrightness(int brightness);
     void setAttentionLight(boolean on, int color);
     void setAutoBrightnessAdjustment(float adj);
+    void setKeyboardLight(boolean on, int key);
 
     // custom backlight things
     int getLightSensorValue();
